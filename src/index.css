@@ -2,6 +2,40 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --ink-blue: #123b5d;
+  --ink-blue-dark: #0d2b43;
+  --paper: #f7f5ef;
+  --print-orange: #e56b3f;
+  --card-blue: #e8eef2;
+}
+
+/* Brand palette: ink blue, paper, and a small print-orange accent. */
+.bg-blue-600 { background-color: var(--ink-blue) !important; }
+.bg-blue-700 { background-color: var(--ink-blue-dark) !important; }
+.bg-blue-50 { background-color: #eef4f7 !important; }
+.bg-blue-100 { background-color: var(--card-blue) !important; }
+.bg-blue-200 { background-color: #c9d9e2 !important; }
+.bg-gray-50 { background-color: var(--paper) !important; }
+.text-blue-600 { color: var(--ink-blue) !important; }
+.text-blue-800 { color: var(--ink-blue-dark) !important; }
+.hover\:text-blue-600:hover { color: var(--ink-blue) !important; }
+.hover\:text-blue-800:hover { color: var(--ink-blue-dark) !important; }
+.hover\:bg-blue-700:hover { background-color: var(--ink-blue-dark) !important; }
+.focus\:ring-blue-500:focus { --tw-ring-color: var(--ink-blue); }
+.focus\:ring-blue-300:focus { --tw-ring-color: #8aa8bc; }
+.focus\:ring-blue-200:focus { --tw-ring-color: #c9d9e2; }
+.focus\:border-transparent:focus { border-color: var(--ink-blue) !important; }
+.border-blue-200 { border-color: #c9d9e2 !important; }
+
+.bg-print-orange {
+  background-color: var(--print-orange);
+}
+
+.hover\:bg-print-orange-dark:hover {
+  background-color: #c9522d;
+}
+
 /* Accessibility improvements */
 body {
   margin: 0;
@@ -38,15 +72,15 @@ body {
 
 /* High contrast focus indicators */
 *:focus {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid var(--ink-blue);
   outline-offset: 2px;
 }
 
 /* Ensure sufficient color contrast for text */
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #1f2937;
-    color: #f9fafb;
+    background-color: #ffffff;
+    color: #263238;
   }
 }
 
