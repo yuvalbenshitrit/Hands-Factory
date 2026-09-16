@@ -178,7 +178,7 @@ const AdminGallery = ({ onBack }: AdminGalleryProps) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {media.map(item => (
             <div key={item.path} className="bg-white rounded-xl shadow overflow-hidden">
-              {item.type === 'video' ? <video src={item.src} controls className="w-full h-48 object-cover" /> : <img src={item.src} alt={item.alt} className="w-full h-48 object-cover" />}
+              {item.type === 'video' ? <video src={item.src} controls preload="none" className="w-full h-48 object-cover" /> : <img src={item.src} alt={item.alt} loading="lazy" decoding="async" className="w-full h-48 object-cover" />}
               <button onClick={() => void handleDelete(item)} disabled={isBusy} className="w-full flex items-center justify-center gap-2 p-3 text-red-600 hover:bg-red-50 disabled:opacity-50">
                 <Trash2 className="h-5 w-5" />
                 מחיקה

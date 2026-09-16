@@ -225,8 +225,7 @@ const App = () => {
                     src={media.src}
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                     controls
-                    preload="metadata"
-                    poster=""
+                    preload="none"
                     aria-label={`סרטון: ${media.alt}`}
                     title={media.alt}
                   >
@@ -236,6 +235,8 @@ const App = () => {
                   <img 
                     src={media.src}
                     alt={media.alt}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 cursor-pointer"
                     onClick={() => setSelectedImage({src: media.src, alt: media.alt})}
                     onKeyDown={(e) => {
@@ -793,6 +794,8 @@ const App = () => {
                   <img 
                     src={media.src}
                     alt={media.alt}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 cursor-pointer"
                     onClick={() => setSelectedImage({src: media.src, alt: media.alt})}
                     onKeyDown={(e) => {
