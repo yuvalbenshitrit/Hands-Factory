@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import { 
-  Settings, 
-  Shield, 
-  Users, 
+  Search,
+  Pencil,
+  Box,
+  Factory,
+  PackageCheck,
   Phone, 
   Mail, 
   MapPin,
@@ -10,9 +12,6 @@ import {
   X,
   ArrowRight,
   CheckCircle,
-  Clock,
-  Target,
-  Zap,
   Instagram,
   ExternalLink,
 } from 'lucide-react';
@@ -148,6 +147,11 @@ const App = () => {
 
   // Featured images for home page (first 3 images)
   const featuredImages = galleryMedia.filter(media => media.type === 'image').slice(0, 3);
+  const displayImages = featuredImages.length > 0 ? featuredImages : [
+    { src: '/factory.jpg', alt: 'חלל הייצור של ידיים', type: 'image' as const },
+    { src: '/description.jpg', alt: 'תהליך ייצור והדבקה', type: 'image' as const },
+    { src: '/hands.jpg', alt: 'עבודה מדויקת בידיים', type: 'image' as const },
+  ];
 
   // Image Modal Component
   const ImageModal = () => (
@@ -451,7 +455,7 @@ const App = () => {
           {/* Home Page Content */}
      
       <header>
-        <nav className="fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50" role="navigation" aria-label="ניווט ראשי">
+        <nav className="factory-nav fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-50" role="navigation" aria-label="ניווט ראשי">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-2">
@@ -567,7 +571,7 @@ const App = () => {
 
       <main id="main-content">
         {/* Hero Section */}
-        <section id="home" className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800" aria-labelledby="hero-heading">
+        <section id="home" className="factory-hero relative min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800" aria-labelledby="hero-heading">
         <div className="absolute inset-0 bg-black/40"></div>
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -602,7 +606,7 @@ const App = () => {
       </section>
 
       {/* Statistics Section */}
-      <section className="py-16 bg-gray-50" aria-labelledby="stats-heading">
+      <section className="factory-stats py-16 bg-gray-50" aria-labelledby="stats-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 id="stats-heading" className="sr-only">הסטטיסטיקות שלנו</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8" role="list">
@@ -626,101 +630,65 @@ const App = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section id="services" className="py-20 bg-white" aria-labelledby="services-heading">
+      {/* Brand Film Section */}
+      <section className="factory-film" aria-labelledby="film-heading">
+        <div className="factory-film-inner">
+          <div className="factory-film-copy">
+            <p className="factory-eyebrow">הצצה אל מאחורי הקלעים</p>
+            <h2 id="film-heading">ככה העבודה שלנו נראית באמת</h2>
+            <p>הכירו את המפעל, האנשים והדיוק שמאחורי כל פרויקט.</p>
+          </div>
+          <div className="factory-film-frame">
+            <video
+              src="/video-factory2.mp4"
+              poster="/factory.jpg"
+              autoPlay
+              muted
+              loop
+              playsInline
+              controls
+              preload="metadata"
+              aria-label="סרטון תדמית של מפעל ידיים הדבקות והפקות דפוס"
+            >
+              הדפדפן שלך לא תומך בניגון סרטונים.
+            </video>
+          </div>
+        </div>
+      </section>
+
+      {/* Process Section */}
+      <section id="services" className="factory-services py-20 bg-white" aria-labelledby="services-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 id="services-heading" className="text-4xl font-bold text-gray-900 mb-4">השירותים שלנו</h2>
+            <p className="factory-eyebrow">מהרעיון ועד המוצר המוגמר</p>
+            <h2 id="services-heading" className="text-4xl font-bold text-gray-900 mb-4">איך אנחנו עובדים</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              פתרונות ייצור מקיפים המותאמים לצרכים התעשייתיים שלך עם דיוק ומצוינות
+              תהליך מסודר, אישי וגמיש שמחבר בין תכנון מדויק, ייצור איכותי וגימור מוקפד.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" role="list">
-            <article className="group bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" role="listitem">
-              <div className="bg-blue-100 rounded-lg p-3 inline-block mb-6 group-hover:bg-blue-200 transition-colors" aria-hidden="true">
-                <Settings className="h-8 w-8 text-blue-600" />
+          <div className="factory-process" role="list">
+            {[
+              { number: '01', title: 'אפיון הצורך', text: 'מכירים את המוצר, היעדים והדרישות.', icon: Search },
+              { number: '02', title: 'תכנון הפתרון', text: 'מתכננים מבנה, חומרים ושיטת ייצור.', icon: Pencil },
+              { number: '03', title: 'דוגמה ואישור', text: 'בודקים דוגמה ומדייקים לפני ייצור מלא.', icon: Box },
+              { number: '04', title: 'ייצור', text: 'מייצרים בכמויות קטנות ובינוניות ובאיכות גבוהה.', icon: Factory },
+              { number: '05', title: 'גימור, הרכבה ואריזה', text: 'מסיימים, מרכיבים ומכינים לאספקה.', icon: PackageCheck },
+            ].map(({ number, title, text, icon: StepIcon }, index) => (
+              <div className="factory-process-step" role="listitem" key={number}>
+                <div className="factory-process-number">{number}</div>
+                <div className="factory-process-icon" aria-hidden="true"><StepIcon /></div>
+                <h3>{title}</h3>
+                <p>{text}</p>
+                {index > 0 && <ArrowRight className="factory-process-arrow rotate-180" aria-hidden="true" />}
               </div>
-             <h3 className="text-xl font-semibold text-gray-900 mb-4">פתרונות מקיפים באריזות קרטון</h3>
-<p className="text-gray-600 mb-6 leading-relaxed">
-  מידיים מביאה עמה ניסיון רב שנים בתחום האריזות והדפוס, ומספקת פתרונות מקצועיים בהדבקות, גימורים, איסופים והקמת קופסאות. אנו מקפידים על איכות גבוהה ומציעים גם שירותי ייצור והרכבה בבית הלקוח במקרה הצורך.
-</p>
-
-              <div className="flex items-center text-blue-600 font-medium group-hover:gap-2 transition-all">
-                גלה עוד<ArrowRight className="h-4 w-4 ml-1 group-hover:ml-0 transition-all" aria-hidden="true" />
-              </div>
-            </article>
-
-            <article className="group bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" role="listitem">
-              <div className="bg-green-100 rounded-lg p-3 inline-block mb-6 group-hover:bg-green-200 transition-colors" aria-hidden="true">
-                <Shield className="h-8 w-8 text-green-600" />
-              </div>
-             <h3 className="text-xl font-semibold text-gray-900 mb-4">בקרת איכות</h3>
-<p className="text-gray-600 mb-6 leading-relaxed">
-  בידיים הדבקות והפקות דפוס בע"מ אנו מקפידים על תהליכי בקרת איכות קפדניים, כדי להבטיח שכל מוצר יעמוד בסטנדרטים הגבוהים ביותר.
-</p>
-              <div className="flex items-center text-blue-600 font-medium group-hover:gap-2 transition-all">
-               גלה עוד <ArrowRight className="h-4 w-4 ml-1 group-hover:ml-0 transition-all" aria-hidden="true" />
-              </div>
-            </article>
-
-            <article className="group bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" role="listitem">
-              <div className="bg-orange-100 rounded-lg p-3 inline-block mb-6 group-hover:bg-orange-200 transition-colors" aria-hidden="true">
-                <Users className="h-8 w-8 text-orange-600" />
-              </div>
-             <h3 className="text-xl font-semibold text-gray-900 mb-4">פתרונות מותאמים אישית</h3>
-<p className="text-gray-600 mb-6 leading-relaxed">
-  אנו מציעים פתרונות ייחודיים ומותאמים אישית בתחומי ההדבקות, הגימורים והפקות הדפוס – כדי לענות בדיוק על הצרכים של העסק שלך.
-</p>
-              <div className="flex items-center text-blue-600 font-medium group-hover:gap-2 transition-all">
-                גלה עוד <ArrowRight className="h-4 w-4 ml-1 group-hover:ml-0 transition-all" aria-hidden="true" />
-              </div>
-            </article>
-
-            <article className="group bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" role="listitem">
-              <div className="bg-purple-100 rounded-lg p-3 inline-block mb-6 group-hover:bg-purple-200 transition-colors" aria-hidden="true">
-                <Clock className="h-8 w-8 text-purple-600" />
-              </div>
-             <h3 className="text-xl font-semibold text-gray-900 mb-4">הקפדה על לוחות זמנים</h3>
-<p className="text-gray-600 mb-6 leading-relaxed">
-  תהליכי עבודה יעילים והקפדה על תכנון מוקפד מאפשרים לנו לתקתק כל פרויקט בזמן ובמקצועיות.
-</p>
-              <div className="flex items-center text-blue-600 font-medium group-hover:gap-2 transition-all">
-                גלה עוד <ArrowRight className="h-4 w-4 ml-1 group-hover:ml-0 transition-all" aria-hidden="true" />
-              </div>
-            </article>
-
-            <article className="group bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" role="listitem">
-              <div className="bg-red-100 rounded-lg p-3 inline-block mb-6 group-hover:bg-red-200 transition-colors" aria-hidden="true">
-                <Target className="h-8 w-8 text-red-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">ניהול פרויקטים</h3>
-<p className="text-gray-600 mb-6 leading-relaxed">
-  ניהול פרויקטים מקצה לקצה – מהרעיון ועד להשלמת הפרויקט – תוך שמירה על תיאום, יעילות וביצוע חלק.
-</p>
-              <div className="flex items-center text-blue-600 font-medium group-hover:gap-2 transition-all">
-                גלה עוד <ArrowRight className="h-4 w-4 ml-1 group-hover:ml-0 transition-all" aria-hidden="true" />
-              </div>
-            </article>
-
-            <article className="group bg-white rounded-xl shadow-lg border border-gray-100 p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" role="listitem">
-              <div className="bg-teal-100 rounded-lg p-3 inline-block mb-6 group-hover:bg-teal-200 transition-colors" aria-hidden="true">
-                <Zap className="h-8 w-8 text-teal-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">חדשנות וביצוע</h3>
-<p className="text-gray-600 mb-6 leading-relaxed">
-  חדשנות מתמדת ומחקר ופיתוח מאפשרים לנו להוביל את תחום האריזות והדפוס ולהישאר בראש הטכנולוגיה והמגמות.
-</p>
-              <div className="flex items-center text-blue-600 font-medium group-hover:gap-2 transition-all">
-                גלה עוד <ArrowRight className="h-4 w-4 ml-1 group-hover:ml-0 transition-all" aria-hidden="true" />
-              </div>
-            </article>
+            ))}
           </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-gray-50" aria-labelledby="about-heading">
+      <section id="about" className="factory-about py-20 bg-gray-50" aria-labelledby="about-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -775,7 +743,7 @@ const App = () => {
       </section>
 
       {/* Featured Images Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-gray-50" aria-labelledby="featured-gallery-heading">
+      <section className="factory-gallery py-12 sm:py-16 lg:py-20 bg-gray-50" aria-labelledby="featured-gallery-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <h2 id="featured-gallery-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">גלריית תמונות</h2>
@@ -784,8 +752,8 @@ const App = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredImages.map((media, index) => (
+          <div className="factory-featured-gallery grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+            {displayImages.map((media, index) => (
               <div 
                 key={index}
                 className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
@@ -841,7 +809,7 @@ const App = () => {
       </section>
 
       {/* Instagram Section */}
-      <section className="py-12 sm:py-16 lg:py-20 bg-white" aria-labelledby="instagram-heading">
+      <section className="factory-instagram py-12 sm:py-16 lg:py-20 bg-white" aria-labelledby="instagram-heading">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-br from-pink-500 via-purple-500 to-orange-500 p-1 rounded-2xl shadow-lg">
             <div className="bg-white rounded-xl p-8 text-center">
@@ -873,7 +841,7 @@ const App = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-12 sm:py-16 lg:py-20 bg-gray-50" aria-labelledby="contact-heading">
+      <section id="contact" className="factory-contact py-12 sm:py-16 lg:py-20 bg-gray-50" aria-labelledby="contact-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 sm:mb-16">
             <h2 id="contact-heading" className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">צור קשר</h2>
@@ -1071,7 +1039,7 @@ const App = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12" role="contentinfo">
+      <footer className="factory-footer bg-gray-900 text-white py-12" role="contentinfo">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div className="md:col-span-2">
